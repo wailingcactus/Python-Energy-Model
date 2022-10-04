@@ -10,8 +10,8 @@ greenhouse_area = 100000 #m^2
 demand_file = 'Delaware_Model_Data_2018.xlsx'
 
 # Solar Parameters
-start_date = 20190101
-end_date = 20191231
+start_date = 20180101
+end_date = 20181231
 lat = 38.9573
 long = -75.4903
 solar_area = 0.2 * greenhouse_area
