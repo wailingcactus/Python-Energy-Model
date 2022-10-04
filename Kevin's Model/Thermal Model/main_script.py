@@ -29,7 +29,7 @@ geothermal_system = geothermal_system.geothermal_system(average_heating)
 demand['geothermal_kWh'] = geothermal_system
 
 # Pull in solar data
-solar = solar.get_solar(start_date,end_date,lat,long,solar_area,panel_efficiency)
+solar = solar.get_solar(start_date, end_date, lat, long, solar_area, panel_efficiency)
 demand['solar_kWh'] = solar['solar_production_kWh']
 
 # Plotting
