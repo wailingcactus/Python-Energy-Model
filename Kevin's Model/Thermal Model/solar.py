@@ -18,7 +18,7 @@ def get_solar(start, end, lat, long, area, efficiency):
     }
 
     response = requests.get("https://power.larc.nasa.gov/api/temporal/hourly/point", params = parameters)
-    print(response.status_code)
+    # print(response.status_code)
     #jprint(response.json())
 
     r = response.json()
