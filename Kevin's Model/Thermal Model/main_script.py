@@ -33,15 +33,22 @@ peak_electricity = round(max(hourly_demand['electricity_usage_kWh']))
 average_heating = annual_heating/8760
 geothermal_system = geothermal_system.geothermal_system(average_heating)
 hourly_demand['geothermal_kWh'] = geothermal_system
+total_geothermal= round(sum(hourly_demand['geothermal_kWh']))
 
 # Pull in solar data
 solar = solar.get_solar(start_date, end_date, lat, long, solar_area, panel_efficiency)
-hourly_demand['solar_kWh'] = solar['solar_production_kWh']
+hourly_demand['solar_kWh'] = 0
+hourly_demand['solar_kWh'][0:8755] = solar['solar_production_kWh'][5:]
+total_solar = round(sum(hourly_demand['solar_kWh']))
 
 # Calculate mismatch
 hourly_demand['thermal_mismatch'] = hourly_demand['gas_usage_kWh'] - hourly_demand['geothermal_kWh']
+hourly_demand['electrical_mismatch'] = hourly_demand['electricity_usage_kWh'] - hourly_demand['solar_kWh']
 thermal_deficit = round(sum(i for i in hourly_demand['thermal_mismatch'] if i > 0))
 thermal_surplus = round(sum(i for i in hourly_demand['thermal_mismatch'] if i < 0))
+electrical_deficit = round(sum(i for i in hourly_demand['electrical_mismatch'] if i > 0))
+electrical_surplus = round(sum(i for i in hourly_demand['electrical_mismatch'] if i < 0))
+
 
 
 #Printing statistics
@@ -51,8 +58,12 @@ print(f"Baseload (24h) thermal demand is {baseload_heating} kWh")
 print(f"Baseload (24h) electricity demand is {baseload_electricity} kWh")
 print(f"Peak thermal demand is {peak_heating} kW")
 print(f"Peak electricity demand is {peak_electricity} kW")
-print(f"The total excess geothermal energy produced in the summer is {thermal_surplus} kWh and the "
-      f"total geothermal energy deficit in the winter is {thermal_deficit} kWh.")
+print(f"Total geothermal energy produced is is {total_geothermal} kWh")
+print(f"Total solar energy produced is is {total_solar} kWh")
+print(f"The total excess solar energy produced  is {electrical_surplus} kWh and the "
+      f"total solar energy deficit  is {electrical_deficit} kWh.")
+print(f"The total excess geothermal energy produced  is {thermal_surplus} kWh and the "
+      f"total geothermal energy deficit  is {thermal_deficit} kWh.")
 # Plotting
 # demand.plot(y = ['gas_usage_kWh','geothermal_kWh'])
 # plt.show()

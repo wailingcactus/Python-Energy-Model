@@ -14,7 +14,7 @@ def get_solar(start, end, lat, long, area, efficiency):
         "longitude": long,
         "community": "re",
         "parameters": "ALLSKY_SFC_SW_DWN",
-        "time-standard": "utc"
+        "time-standard": "lst"
     }
 
     response = requests.get("https://power.larc.nasa.gov/api/temporal/hourly/point", params = parameters)
