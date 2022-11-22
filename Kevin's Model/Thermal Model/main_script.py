@@ -65,5 +65,5 @@ print(f"The total excess solar energy produced  is {electrical_surplus} kWh and 
 print(f"The total excess geothermal energy produced  is {thermal_surplus} kWh and the "
       f"total geothermal energy deficit  is {thermal_deficit} kWh.")
 # Plotting
-# demand.plot(y = ['gas_usage_kWh','geothermal_kWh'])
-# plt.show()
+hourly_demand.plot(y = ['gas_usage_kWh','geothermal_kWh'])
+plt.show()
